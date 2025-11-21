@@ -586,7 +586,7 @@ If calculating in $GF(7)$:
   * `1 / 3` $\rightarrow$ Inverse of 3 is 5 (because $3 \times 5 = 15 \equiv 1 \pmod 7$).
 
 ---
-# [HOMEWORK 6]()
+# [HOMEWORK 6](https://github.com/dy546/_cm/blob/5963b7e95ce45df62ca20bb7f0d7486980e5fa9b/homework/geometry_toolkit.py)
 
 All copied from GEMINI without modification
 
@@ -713,7 +713,7 @@ $$ y' = o_y + (x - o_x)\sin\theta + (y - o_y)\cos\theta $$
 > **Note**: For these formulas to work with standard math libraries (like Python's `math` module), the angle $\theta$ must be in **radians**.
 
 ---
-# [HOMEWORK 8]()
+# [HOMEWORK 8](https://github.com/dy546/_cm/blob/5963b7e95ce45df62ca20bb7f0d7486980e5fa9b/homework/information_theory_and_coding.py)
 
 All copied from GEMINI without modification
 
@@ -836,7 +836,7 @@ if syndrome_idx != 0:
     * This allows the code to self-repair single-bit errors.
 
 ---
-# [HOMEWORK 9]()
+# [HOMEWORK 9](https://github.com/dy546/_cm/blob/5963b7e95ce45df62ca20bb7f0d7486980e5fa9b/homework/linear_algebra.py)
 
 All copied from GEMINI without modification
 
