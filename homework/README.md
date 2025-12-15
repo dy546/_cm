@@ -930,7 +930,7 @@ All copied from GEMINI without modification
     * A dimensionality reduction technique aimed at finding the directions with the largest data **variance**.
 * **Relationship:** When performing SVD on a data matrix, $V$ (the right singular vectors) represents the **principal component directions** of PCA, and $\Sigma$ (singular values) represents the magnitude of the variance.
 
-# [HOMEWORK 10](https://github.com/dy546/_cm/blob/5963b7e95ce45df62ca20bb7f0d7486980e5fa9b/homework/hw10.py)
+# [HOMEWORK 10](https://github.com/dy546/_cm/blob/0c20db85417a868cc636d921166218fa3ec08e8c/homework/hw10.py)
 
 All copied from GEMINI without modification
 
@@ -955,7 +955,7 @@ In Python, we use the complex type or the cmath module to handle the imaginary u
 > [!NOTE]
 > The $1/2\pi$ in your continuous formula is represented by the $1/N$ normalization factor in the discrete domain) 
 
-[HOMEWORK 11](https://github.com/dy546/_cm/blob/c67478f6e8bc109a78438de8afc32446945f2bec/homework/hw11.py)
+[HOMEWORK 11](https://github.com/dy546/_cm/blob/0c20db85417a868cc636d921166218fa3ec08e8c/homework/hw11.py)
 
 All Copied From Gemini Without Modification
 
@@ -971,36 +971,36 @@ This is the most critical part of the code. In your original execution log, the 
 messy because standard root-finding algorithms (like numpy.roots which uses the eigenvalues 
 of the companion matrix) are numerical approximations.
 
-- The Problem: For the equation $(x-2)^2=0$, the computer might find roots like 2.0000000001 and 1.9999999999.
-    - A naive program sees these as two distinct real roots.
-    - Result: $C_1 e^{2.000001x} + C_2 e^{1.99999x}$ (Incorrect).
+    - The Problem: For the equation $(x-2)^2=0$, the computer might find roots like 2.0000000001 and 1.9999999999.
+        - A naive program sees these as two distinct real roots.
+        - Result: $C_1 e^{2.000001x} + C_2 e^{1.99999x}$ (Incorrect).
 
-- The Solution:
-    - I implemented a group_roots function.
-    - It compares roots. If $|r_1 - r_2| < \epsilon$, they are treated as the same root with a multiplicity count.
-    - Result: Root 2 with count=2.
-    - Formula applied: $C_1 e^{2x} + C_2 x e^{2x}$ (Correct).
+    - The Solution:
+        - I implemented a group_roots function.
+        - It compares roots. If $|r_1 - r_2| < \epsilon$, they are treated as the same root with a multiplicity count.
+        - Result: Root 2 with count=2.
+        - Formula applied: $C_1 e^{2x} + C_2 x e^{2x}$ (Correct).
 
 3. Handling Complex Roots
 Standard solvers return complex roots in pairs (e.g., $0+2j$ and $0-2j$).
-- Filtering: The code iterates through groups. If the imaginary part beta > 0, it triggers the sine/cosine generation.
-- Ignoring Conjugates: If beta < 0, the code skips it, because the term with beta > 0 has already generated the 
+    - Filtering: The code iterates through groups. If the imaginary part beta > 0, it triggers the sine/cosine generation.
+    - Ignoring Conjugates: If beta < 0, the code skips it, because the term with beta > 0 has already generated the 
 necessary $\cos(\beta x)$ and $\sin(\beta x)$ pair for the solution.
-- Purely Imaginary: The code checks if the real part alpha is close to 0. If so, it suppresses the $e^{0x}$ term 
+    - Purely Imaginary: The code checks if the real part alpha is close to 0. If so, it suppresses the $e^{0x}$ term 
 to clean up the output (just $\cos(2x)$ instead of $e^{0x}\cos(2x)$).
 
 4. String Formatting Logic
 To ensure the output looks like a human wrote it (matches your "Expected Solution"), specific formatting rules were applied:
 
-- 1x vs x: If the coefficient is 1, do not print "1".
-- e^(0x): If the exponent is 0, remove the exponential term entirely.
-- Floating Point Display: Used {:.5g} to format numbers nicely (e.g., turns 2.00000004 into 2, but keeps 2.5 as 2.5).
+    - 1x vs x: If the coefficient is 1, do not print "1".
+    - e^(0x): If the exponent is 0, remove the exponential term entirely.
+    - Floating Point Display: Used {:.5g} to format numbers nicely (e.g., turns 2.00000004 into 2, but keeps 2.5 as 2.5).
 
 5. Algorithm Flowchart
-- Input: Coefficient List [1, -4, 4].
-- NumPy: Find roots $\to$ [2.+0.j, 2.+0.j].
-- Grouping: Detect these are within tolerance $\to$ {'value': 2, 'count': 2}.
-- Generation:Count 0: $C_1 e^{2x}$Count 1: $C_2 x e^{2x}$
-- Output: Combine strings $\to$ "y(x) = C_1e^(2x) + C_2xe^(2x)".
+    - Input: Coefficient List [1, -4, 4].
+    - NumPy: Find roots $\to$ [2.+0.j, 2.+0.j].
+    - Grouping: Detect these are within tolerance $\to$ {'value': 2, 'count': 2}.
+    - Generation:Count 0: $C_1 e^{2x}$Count 1: $C_2 x e^{2x}$
+    - Output: Combine strings $\to$ "y(x) = C_1e^(2x) + C_2xe^(2x)".
     
     
