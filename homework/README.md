@@ -930,3 +930,77 @@ All copied from GEMINI without modification
     * A dimensionality reduction technique aimed at finding the directions with the largest data **variance**.
 * **Relationship:** When performing SVD on a data matrix, $V$ (the right singular vectors) represents the **principal component directions** of PCA, and $\Sigma$ (singular values) represents the magnitude of the variance.
 
+# [HOMEWORK 10](https://github.com/dy546/_cm/blob/5963b7e95ce45df62ca20bb7f0d7486980e5fa9b/homework/hw10.py)
+
+All copied from GEMINI without modification
+
+To implement this in Python, we must bridge the gap between the Continuous Fourier Transform (CFT)
+(shown in the math formulas in your image) and the Discrete Fourier Transform (DFT) (which computers use).
+
+1. From Continuous to Discrete Computers cannot process infinite integrals or continuous functions. 
+Instead, we use lists of numbers (discrete samples).
+    - The integral $\int$ becomes a summation $\sum$.
+    - The continuous time $x$ becomes a discrete index $n$.
+    - The continuous frequency $\omega$ becomes a discrete frequency index $k$.
+2. The Euler Formula The core of the calculation involves the complex exponential, which we calculate using Euler's formula:
+    $$e^{-ix} = \cos(x) - i\sin(x)$$
+In Python, we use the complex type or the cmath module to handle the imaginary unit $i$ (written as 1j in Python).
+3. The Discrete Formulas Since we cannot use the standard FFT packages, we will implement the summation loops manually.
+
+    - DFT Equation (Forward):
+        $$X[k] = \sum_{n=0}^{N-1} x[n] \cdot e^{-i \frac{2\pi}{N} k n}$$
+    - IDFT Equation (Inverse):
+        $$x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] \cdot e^{i \frac{2\pi}{N} k n}$$
+
+> [!NOTE]
+> The $1/2\pi$ in your continuous formula is represented by the $1/N$ normalization factor in the discrete domain) 
+
+[HOMEWORK 11](https://github.com/dy546/_cm/blob/c67478f6e8bc109a78438de8afc32446945f2bec/homework/hw11.py)
+
+All Copied From Gemini Without Modification
+
+1. Mathematical Foundation
+The logic is based on the Characteristic Equation method for solving Homogeneous Linear ODEs with constant coefficients:
+$$a_n y^{(n)} + \dots + a_1 y' + a_0 y = 0$$
+We transform this into a polynomial equation:
+$$a_n \lambda^n + \dots + a_1 \lambda + a_0 = 0$$
+The form of the solution depends entirely on the roots $\lambda$ of this polynomial.
+
+2. Why Use Numerical Tolerance (tol=1e-5)?
+This is the most critical part of the code. In your original execution log, the output was
+messy because standard root-finding algorithms (like numpy.roots which uses the eigenvalues 
+of the companion matrix) are numerical approximations.
+
+- The Problem: For the equation $(x-2)^2=0$, the computer might find roots like 2.0000000001 and 1.9999999999.
+    - A naive program sees these as two distinct real roots.
+    - Result: $C_1 e^{2.000001x} + C_2 e^{1.99999x}$ (Incorrect).
+
+- The Solution:
+    - I implemented a group_roots function.
+    - It compares roots. If $|r_1 - r_2| < \epsilon$, they are treated as the same root with a multiplicity count.
+    - Result: Root 2 with count=2.
+    - Formula applied: $C_1 e^{2x} + C_2 x e^{2x}$ (Correct).
+
+3. Handling Complex Roots
+Standard solvers return complex roots in pairs (e.g., $0+2j$ and $0-2j$).
+- Filtering: The code iterates through groups. If the imaginary part beta > 0, it triggers the sine/cosine generation.
+- Ignoring Conjugates: If beta < 0, the code skips it, because the term with beta > 0 has already generated the 
+necessary $\cos(\beta x)$ and $\sin(\beta x)$ pair for the solution.
+- Purely Imaginary: The code checks if the real part alpha is close to 0. If so, it suppresses the $e^{0x}$ term 
+to clean up the output (just $\cos(2x)$ instead of $e^{0x}\cos(2x)$).
+
+4. String Formatting Logic
+To ensure the output looks like a human wrote it (matches your "Expected Solution"), specific formatting rules were applied:
+
+- 1x vs x: If the coefficient is 1, do not print "1".
+- e^(0x): If the exponent is 0, remove the exponential term entirely.
+- Floating Point Display: Used {:.5g} to format numbers nicely (e.g., turns 2.00000004 into 2, but keeps 2.5 as 2.5).
+
+5. Algorithm Flowchart
+- Input: Coefficient List [1, -4, 4].
+- NumPy: Find roots $\to$ [2.+0.j, 2.+0.j].
+- Grouping: Detect these are within tolerance $\to$ {'value': 2, 'count': 2}.
+- Generation:Count 0: $C_1 e^{2x}$Count 1: $C_2 x e^{2x}$
+- Output: Combine strings $\to$ "y(x) = C_1e^(2x) + C_2xe^(2x)".
+    
+    
