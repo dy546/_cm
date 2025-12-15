@@ -955,7 +955,7 @@ In Python, we use the complex type or the cmath module to handle the imaginary u
 > [!NOTE]
 > The $1/2\pi$ in your continuous formula is represented by the $1/N$ normalization factor in the discrete domain) 
 
-[HOMEWORK 11](https://github.com/dy546/_cm/blob/0c20db85417a868cc636d921166218fa3ec08e8c/homework/hw11.py)
+# [HOMEWORK 11](https://github.com/dy546/_cm/blob/0c20db85417a868cc636d921166218fa3ec08e8c/homework/hw11.py)
 
 All Copied From Gemini Without Modification
 
